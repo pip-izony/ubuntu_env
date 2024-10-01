@@ -1,11 +1,11 @@
 quirk_apple_poweroff_thunderbolt
 quirk_thunderbolt_hotplug_msi
 tb_ring_poll
-ring_write_descriptors__tb_ring_enqueue
+ring_write_descriptors
+__tb_ring_enqueue
 ring_work
 __ring_interrupt_mask
 tb_ring_poll_complete
-nhi_alloc_hop
 nhi_runtime_suspend
 nhi_thaw_noirq
 nhi_freeze_noirq
@@ -17,7 +17,6 @@ ring_iowrite64desc.constprop.0
 tb_ring_alloc
 tb_ring_alloc_tx
 tb_ring_alloc_rx
-__nhi_suspend_noirq.isra.0
 nhi_poweroff_noirq
 nhi_disable_interrupts
 nhi_shutdown
@@ -41,6 +40,11 @@ icl_nhi_resume
 icl_nhi_lc_mailbox_cmd_complete.constprop.0
 icl_nhi_suspend
 icl_nhi_suspend_noirq
+__traceiter_tb_tx
+__probestub_tb_tx
+__traceiter_tb_event
+__traceiter_tb_rx
+__probestub_tb_rx
 tb_cfg_match
 check_header
 check_config_address
@@ -48,7 +52,9 @@ tb_cfg_request_dequeue
 tb_cfg_request_complete
 tb_cfg_print_error
 tb_cfg_copy
+__probestub_tb_event
 tb_ctl_pkg_alloc
+tb_ctl_handle_event
 tb_ctl_tx
 tb_ctl_tx_callback
 tb_cfg_request_alloc
@@ -73,9 +79,11 @@ tb_cfg_write
 tb_cfg_get_upstream_port
 tb_freeze_noirq
 tb_thaw_noirq
-tb_detach_bandwidth_group
+__release_group_bandwidth
 tb_bandwidth_group_attach_port
 tb_attach_bandwidth_group
+tb_detach_bandwidth_group
+tb_stop
 tb_consumed_dp_bandwidth
 tb_disable_clx
 tb_enable_clx
@@ -83,56 +91,45 @@ tb_queue_hotplug
 tb_handle_event
 tb_add_dp_resources
 tb_runtime_suspend
-tb_stop
-tb_apple_add_links
+tb_deinit
 tb_increase_switch_tmu_accuracy
 tb_enable_tmu
 tb_scan_finalize_switch
-tb_find_pcie_down
 tb_configure_sym.part.0.isra.0
-tb_configure_sym.isra.0
-tb_maximum_bandwidth.constprop.0.isra.0
 tb_configure_asym.part.0
 tb_free_unplugged_xdomains
-tb_disconnect_pci
 tb_remove_dp_resources
 tb_free_unplugged_children
 tb_remove_work
 tb_switch_discover_tunnels
+tb_disconnect_pci
+tb_restore_children.part.0
+tb_approve_xdomain_paths
 tb_find_first_usb3_tunnel.isra.0
 tb_available_bandwidth
 tb_reclaim_usb3_bandwidth
 tb_deactivate_and_free_tunnel.part.0
 tb_free_invalid_tunnels
+tb_runtime_resume
 tb_suspend_noirq
-tb_tunnel_usb3
-tb_create_usb3_tunnels
-tb_recalc_estimated_bandwidth_for_group
-tb_recalc_estimated_bandwidth
 __tb_disconnect_xdomain_paths.isra.0
 tb_disconnect_xdomain_paths
-tb_tunnel_pci
-tb_restore_children.part.0
-tb_runtime_resume
-tb_approve_xdomain_paths
+tb_tunnel_usb3
+tb_create_usb3_tunnels
+tb_recalc_estimated_bandwidth
+tb_bandwidth_group_release_work
 tb_resume_noirq
-tb_find_dp_out
-tb_tunnel_one_dp
+tb_tunnel_pci
 tb_tunnel_dp
-tb_dp_resource_available
-tb_dp_resource_unavailable
-tb_alloc_dp_bandwidth
-tb_handle_dp_bandwidth_request
 tb_scan_port
 tb_scan_switch
 tb_complete
 tb_start
 tb_handle_hotplug
+tb_handle_dp_bandwidth_request
 tb_probe
 tb_switch_runtime_suspend
 tb_switch_runtime_resume
-tb_dump_switch
-tb_dump_port
 tb_switch_release
 unique_id_show
 vendor_name_show
@@ -156,11 +153,9 @@ tb_switch_set_wake.isra.0
 nvm_set_auth_status
 nvm_authenticate
 switch_attr_is_visible
-tb_switch_nvm_add
 nvm_authenticate_show
-nvm_authenticate_on_disconnect_show
 nvm_authenticate_complete_dma_port.isra.0
-tb_switch_add_dma_port
+nvm_authenticate_on_disconnect_show
 nvm_authenticate_sysfs
 nvm_authenticate_on_disconnect_store
 nvm_authenticate_store
@@ -173,7 +168,6 @@ key_store
 tb_port_do_update_credits
 tb_port_set_lane_bonding
 __tb_port_enable
-tb_init_port
 tb_switch_nvm_read
 tb_port_state
 tb_wait_for_port
@@ -189,7 +183,6 @@ tb_port_release_out_hopid
 tb_next_port_on_path
 tb_port_get_link_speed
 tb_port_get_link_generation
-tb_switch_link_init
 tb_port_get_link_width
 tb_switch_update_link_attributes
 tb_port_width_supported
@@ -197,7 +190,6 @@ tb_port_set_link_width
 tb_port_lane_bonding_enable
 tb_port_lane_bonding_disable
 tb_port_wait_for_link_width
-tb_switch_lane_bonding_enable
 tb_port_update_credits
 tb_port_is_enabled
 tb_usb3_port_is_enabled
@@ -209,7 +201,6 @@ tb_dp_port_hpd_clear
 tb_dp_port_set_hops
 tb_dp_port_is_enabled
 tb_dp_port_enable
-tb_switch_reset_host
 tb_switch_reset
 tb_switch_wait_for_bit
 tb_switch_pcie_bridge_write.constprop.0
@@ -270,15 +261,11 @@ tb_dp_init_aux_path
 tb_dp_init_video_path
 tb_usb3_init_path
 tb_pci_init_path
-tb_dp_wait_dprx.constprop.0
 tb_dp_bandwidth_mode_maximum_bandwidth.isra.0
 tb_dp_allocated_bandwidth
 tb_dp_alloc_bandwidth
 tb_dp_maximum_bandwidth
-tb_dp_dump
 tb_dp_consumed_bandwidth
-tb_dp_bandwidth_alloc_mode_enable
-tb_dp_xchg_caps
 tb_dp_init
 tb_tunnel_reserved_pci
 tb_tunnel_match_dma
@@ -303,7 +290,6 @@ tb_tunnel_consumed_bandwidth
 tb_tunnel_release_unused_bandwidth
 tb_tunnel_reclaim_available_bandwidth
 tb_tunnel_type_name
-tb_drom_parse_entry_port
 tb_drom_parse_entries
 tb_drom_parse
 tb_eeprom_ctl_write
@@ -314,7 +300,6 @@ tb_eeprom_active
 tb_eeprom_read_n
 usb4_copy_drom
 tb_drom_read_uid_only
-tb_drom_host_read
 tb_drom_read
 tb_service_remove
 tb_service_shutdown
@@ -405,34 +390,33 @@ icm_tr_device_disconnected
 icm_fr_device_disconnected
 add_switch
 add_xdomain
-icm_tr_xdomain_connected.part.0
 icm_tr_xdomain_connected
 icm_fr_xdomain_connected
-icm_ar_cio_reset
-icm_tr_cio_reset
 update_switch
 icm_fr_device_connected
 __icm_tr_device_connected.part.0
 icm_icl_device_connected
 icm_tr_device_connected
+icm_ar_cio_reset
+icm_tr_cio_reset
 icm_fr_driver_ready
 icm_icl_driver_ready
 icm_ar_get_route
 icm_ar_driver_ready
 icm_tr_driver_ready
 icm_ar_get_boot_acl
+icm_fr_get_route
 icm_tr_xdomain_tear_down
 icm_tr_disconnect_xdomain_paths
 icm_tr_approve_xdomain_paths
 icm_fr_approve_switch
 icm_fr_approve_xdomain_paths
 icm_tr_approve_switch
-icm_fr_get_route
+icm_ar_set_boot_acl
 icm_fr_add_switch_key
 icm_tr_add_switch_key
 icm_fr_challenge_switch_key
 icm_tr_challenge_switch_key
-icm_ar_set_boot_acl
 icm_reset_phy_port
 icm_driver_ready
 icm_probe
@@ -449,7 +433,6 @@ tb_property_add_immediate
 tb_property_add_dir
 tb_property_add_text
 tb_property_add_data
-tb_property_parse
 __tb_property_parse_dir
 tb_property_parse_dir
 tb_property_format_dir
@@ -477,9 +460,9 @@ key_show
 tb_xdomain_release
 vendor_name_show
 device_name_show
+unregister_service
 tb_xdomain_alloc_in_hopid
 tb_xdomain_alloc_out_hopid
-unregister_service
 tb_xdomain_enable_paths
 tb_xdomain_disable_paths
 tb_register_property_dir
@@ -487,18 +470,15 @@ tb_xdomain_copy
 update_xdomain
 find_service
 remove_missing_service
-update_property_block
 modalias_show
 tb_xdomain_suspend
 tb_unregister_property_dir
 tb_service_uevent
 tb_xdomain_resume
-enumerate_services
 tb_xdomain_update_link_attributes.isra.0
 tb_xdomain_lane_bonding_disable
 tb_xdomain_lane_bonding_enable
 tb_xdomain_response
-tb_xdomain_bond_lanes_uuid_high
 tb_xdomain_request
 switch_find_xdomain
 tb_xdomain_find_by_uuid
@@ -506,14 +486,10 @@ tb_xdomain_find_by_route
 tb_register_protocol_handler
 tb_xdp_error_response.isra.0
 tb_xdp_uuid_request
-tb_xdomain_get_uuid
 tb_xdomain_properties_changed
 tb_xdomain_get_link_status
-tb_xdomain_link_state_change.constprop.0
 tb_xdp_properties_request.constprop.0
-tb_xdomain_get_properties
 tb_xdomain_state_work
-tb_xdp_properties_response.constprop.0
 tb_xdp_handle_request
 tb_is_xdomain_enabled
 tb_xdomain_alloc
@@ -553,10 +529,8 @@ tb_switch_tmu_rate_write
 tb_port_tmu_enhanced_enable
 tb_port_tmu_rate_write
 tb_port_set_tmu_mode_params
-tmu_mode_init
 tb_switch_set_tmu_mode_params
 tb_switch_tmu_off
-tb_switch_tmu_change_mode
 tb_switch_tmu_init
 tb_switch_tmu_post_time
 tb_switch_tmu_disable
@@ -685,7 +659,6 @@ tb_retimer_nvm_authenticate
 remove_retimer
 tb_retimer_set_inbound_sbtx
 tb_retimer_unset_inbound_sbtx
-tb_retimer_add
 nvm_authenticate_show
 nvm_authenticate_store
 nvm_write
@@ -701,7 +674,6 @@ quirk_force_power_link
 quirk_dp_credit_allocation
 tb_check_quirks
 tb_port_clx_supported
-tb_switch_mask_clx_objections
 tb_switch_clx_is_supported
 tb_port_pm_secondary_set
 tb_port_clx_set
@@ -729,7 +701,6 @@ counters_open
 path_open
 port_regs_open
 switch_regs_open
-port_clear_all_counters
 counters_write
 switch_basic_regs_show
 counters_show
@@ -737,7 +708,6 @@ path_show_one
 path_show
 cap_show
 switch_regs_show
-port_cap_show
 port_regs_show
 tb_switch_debugfs_init
 tb_switch_debugfs_remove
@@ -747,3 +717,45 @@ tb_service_debugfs_init
 tb_service_debugfs_remove
 tb_debugfs_init
 tb_debugfs_exit
+tbnet_get_stats64 [thunderbolt_net]
+tbnet_remove [thunderbolt_net]
+start_login [thunderbolt_net]
+tbnet_get_tx_buffer [thunderbolt_net]
+tbnet_tx_callback [thunderbolt_net]
+tbnet_resume [thunderbolt_net]
+tbnet_open [thunderbolt_net]
+stop_login [thunderbolt_net]
+tbnet_start_poll [thunderbolt_net]
+tbnet_logout_request [thunderbolt_net]
+tbnet_free_buffers [thunderbolt_net]
+tbnet_tear_down [thunderbolt_net]
+tbnet_shutdown [thunderbolt_net]
+tbnet_disconnect_work [thunderbolt_net]
+tbnet_stop [thunderbolt_net]
+tbnet_suspend [thunderbolt_net]
+tbnet_login_request [thunderbolt_net]
+tbnet_login_work [thunderbolt_net]
+tbnet_alloc_rx_buffers [thunderbolt_net]
+tbnet_connected_work [thunderbolt_net]
+tbnet_poll [thunderbolt_net]
+tbnet_start_xmit [thunderbolt_net]
+tbnet_handle_packet [thunderbolt_net]
+tbnet_probe [thunderbolt_net]
+__traceiter_tbnet_alloc_rx_frame [thunderbolt_net]
+__probestub_tbnet_alloc_rx_frame [thunderbolt_net]
+__traceiter_tbnet_alloc_tx_frame [thunderbolt_net]
+__traceiter_tbnet_free_frame [thunderbolt_net]
+__traceiter_tbnet_rx_ip_frame [thunderbolt_net]
+__probestub_tbnet_rx_ip_frame [thunderbolt_net]
+__traceiter_tbnet_invalid_rx_ip_frame [thunderbolt_net]
+__traceiter_tbnet_tx_ip_frame [thunderbolt_net]
+__traceiter_tbnet_rx_skb [thunderbolt_net]
+__probestub_tbnet_rx_skb [thunderbolt_net]
+__traceiter_tbnet_tx_skb [thunderbolt_net]
+__traceiter_tbnet_consume_skb [thunderbolt_net]
+__probestub_tbnet_consume_skb [thunderbolt_net]
+__probestub_tbnet_invalid_rx_ip_frame [thunderbolt_net]
+__probestub_tbnet_free_frame [thunderbolt_net]
+__probestub_tbnet_tx_ip_frame [thunderbolt_net]
+__probestub_tbnet_alloc_tx_frame [thunderbolt_net]
+__probestub_tbnet_tx_skb [thunderbolt_net]
