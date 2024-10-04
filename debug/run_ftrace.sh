@@ -17,7 +17,7 @@ echo 1 > /sys/kernel/debug/tracing/tracing_on
 
 # Perform USB remove and re-insert operations
 echo "Perform Thunderbolt remove and re-insert operations"
-sleep 30
+sleep 5
 
 # Stop tracing after operations
 echo 0 > /sys/kernel/debug/tracing/tracing_on
