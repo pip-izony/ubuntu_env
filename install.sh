@@ -7,8 +7,8 @@ wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 sh install.sh
 rm install.sh
 echo "exec zsh" >> ~/.bashrc
-sudo apt install zsh-syntax-highlighting
-echo "source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions)/' $HOME/.zshrc
 
 # root environment
 sudo ln -s $HOME/.oh-my-zsh /root/.oh-my-zsh
